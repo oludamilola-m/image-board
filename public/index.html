@@ -4,7 +4,27 @@
     <title></title>
 </head>
 <body>
+  <h1>Latest Images</h1>
+  <main>
+
+    <ul>
+      <li v-for='image in images'><img :src="image.url" alt="image" width='300px'>
+      <p>{{image.username}}</p>
+      <p>{{image.title}}</p>
+      <p>{{image.username}}</p>
+      </li>
+      
+    </ul>
+
+    <!-- <div v-for='image in images'>
+      <p>{{image.username}}</p>
+      <p>{{image.title}}</p>
+      <p>{{image.username}}</p>
+    </div> -->
+
+  </main>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/src/script.js"></script>
 </body>
 </html>
