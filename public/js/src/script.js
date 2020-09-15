@@ -1,29 +1,50 @@
-// How vue talks to server
-
 (function () {
-  // vue has a constructor that allows us to be able to use vue
-
   new Vue({
     // bind vue to a specific DOM node(main) in index.html
     el: "main",
     data: {
       images: [],
+      title: "",
+      description: "",
+      username: "",
+      file: null,
     },
-    // MOUNTED: one of the lifecycle method is 'mounted' is value is a func, a func that only runs once
-    //runs after the html has been rendered
-    // a better place to fetch data from a database and render it
-    //axios is a libray that allows us make HTTP REQUEST
+
     mounted: function () {
       var that = this;
       axios
         .get("/images")
         .then(function (res) {
-          that.images = res.data.setImage;
-          console.log(" that.images: ", that.images);
+          that.images = res.data.images;
         })
         .catch(function (err) {
-          console.log("err in GET /animals: ", err);
+          console.log("err: ", err);
         });
+    },
+    methods: {
+      handleClick: function (e) {
+        var that = this;
+        e.preventDefault();
+        var formData = new FormData(); //send file to server
+        formData.append("title", this.title);
+        formData.append("description", this.description);
+        formData.append("username", this.username);
+        formData.append("file", this.file);
+
+        axios
+          .post("/upload", formData)
+          .then(function (res) {
+            that.images.unshift(res.data.image);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      },
+
+      handleChange: function (e) {
+        e.preventDefault();
+        this.file = e.target.files[0];
+      },
     },
   });
 })();

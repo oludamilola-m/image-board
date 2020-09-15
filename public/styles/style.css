@@ -1,9 +1,74 @@
 * {
   margin: 0;
+  font-family: "Roboto", sans-serif;
 }
-
 main {
   padding: 0 30px;
+}
+
+.image-gallery {
+  margin-bottom: 20px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.details input {
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 30%;
+}
+
+.details input::placeholder {
+  color: #b1bccb;
+}
+
+.submit-btn {
+  color: #fff;
+  background-color: #1e41aa;
+  border: 1px solid #1e41aa;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 12px 30px;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  border: 1px solid #1e41aa;
+  color: #1e41aa;
+  background-color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px 15px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #1e41aa;
+  color: white;
+}
+
+.inputfile + label svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  margin-right: 0.25em;
+}
+.inputfile:focus + label {
+  outline: none;
 }
 
 .pixel {
