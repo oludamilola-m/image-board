@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+}
+
+main {
+  padding: 0 30px;
+}
+
+.pixel {
+  text-transform: uppercase;
+}
+
+.box {
+  background-color: red;
+  padding: 0px 14px;
+  font-size: 25px;
+  margin: 10px;
+}
+
+.images-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  margin-top: 20px;
+}
+
+.image-card {
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+}
+
+.image {
+  border-radius: 5px;
+  object-fit: cover;
+  height: 230px;
+  width: 100%;
+}
+
+.image-card p {
+  text-align: left;
+}
+
+@media only screen and (max-width: 600px) {
+  .images-container {
+    grid-template-columns: 1fr !important;
+  }
+}
