@@ -50,6 +50,36 @@ router.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     });
 });
 
-//show the most recent first (dont push but unshift it)
+router.get("/images/:id", (req, res) => {
+  const { id } = req.params;
+  db.getImageById(id)
+    .then(function ({ rows }) {
+      var image = rows[0];
+      db.getComments(id)
+        .then(function ({ rows }) {
+          var comments = rows || [];
+          res.json({
+            image: image,
+            comments: comments,
+          });
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+});
+
+router.post("/comments", (req, res) => {
+  const { username, comment, image_id } = req.body;
+
+  db.addComment(comment, username, image_id)
+    .then(({ rows }) => {
+      res.json({
+        comment: rows[0],
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 module.exports = router;
