@@ -42,7 +42,7 @@ router.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
   db.addImage(url, title, description, username)
     .then(({ rows }) => {
-      res.json({
+      res.status(201).json({
         image: rows[0],
       });
     })
@@ -66,7 +66,7 @@ router.get("/images/:id", (req, res) => {
         })
         .catch((err) => console.log(err));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.sendStatus(422));
 });
 
 router.post("/comments", (req, res) => {

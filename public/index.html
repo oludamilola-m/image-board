@@ -23,16 +23,20 @@
             <button @click='handleClick' class='submit-btn'>Submit</button>
           </form>
         </div>      
+
         <div v-if="images.length > 0" class='images-container'>
             <div v-for="image in images" class='image-card' @click='openModal(image.id)' > 
+              <a :href="'#' + image.id">
                 <img :src="image.url" class='image'>
                 <p> {{image.title}}</p>
+              </a>
+                
             </div>
         </div>
         <div v-else>No images to show</div> 
-        
+        <h3>hhh {{imageId}}</h3>
         <!-- <button @click='handleFetchMore' class="load-more-btn">Load More</button> -->
-        <image-details :image-id='imageId' v-if='showModal'  v-on:close-modal="closeModal"></image-details>
+        <image-details :image-id='imageId' :parent-close-modal='closeModal' v-if='imageId'  v-on:close-modal="closeModal"></image-details>
         
     </main>
 
@@ -44,7 +48,7 @@
               <img :src="image.url" class='image'>
               <p>{{image.title}}</p>
               <p>{{image.description}}</p> 
-               <p>Uploaded by {{image.created_at}}</p> 
+              <p>Uploaded by {{image.created_at}}</p> 
 
               <div>
                 <h2>Please add comment</h2>

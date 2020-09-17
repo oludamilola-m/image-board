@@ -2,28 +2,24 @@
   // takes two argument, first the name and second binding the html and the script together
   Vue.component("image-details", {
     template: "#image-details",
-    props: ["imageId"],
+    props: ["imageId", "parentCloseModal"],
     data: function () {
       return {
+        name: "",
         image: {},
         comment: "",
         comments: [],
-        name: "",
       };
     },
     //runs only when the component  is mounted
     mounted: function () {
       // use axios to make call to the server to get data
-      var that = this;
-      axios
-        .get(`/images/${this.imageId}`)
-        .then(function (res) {
-          that.image = res.data.image;
-          that.comments = res.data.comments;
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
+      this.displayImageInModal();
+    },
+    watch: {
+      imageId: function () {
+        this.displayImageInModal();
+      },
     },
     // all d functions that handles event happens inside methods
     methods: {
@@ -44,6 +40,23 @@
             console.log(err);
           });
       },
+
+      displayImageInModal: function () {
+        var that = this;
+        axios
+          .get(`/images/${this.imageId}`)
+          .then(function (res) {
+            if (!res.data.image) {
+              that.parentCloseModal();
+            } else {
+              that.image = res.data.image;
+              that.comments = res.data.comments;
+            }
+          })
+          .catch(function () {
+            that.parentCloseModal();
+          });
+      },
     },
   });
 
@@ -58,8 +71,7 @@
       description: "",
       username: "",
       file: null,
-      showModal: false, //toggling component
-      imageId: null,
+      imageId: location.hash.slice(1),
     },
 
     mounted: function () {
@@ -73,6 +85,10 @@
         .catch(function (err) {
           console.log("err: ", err);
         });
+
+      window.addEventListener("hashchange", function () {
+        that.imageId = location.hash.slice(1);
+      });
     },
     //method in vue instance can only function on element in main
     methods: {
@@ -146,12 +162,12 @@
       },
 
       openModal: function (id) {
-        this.showModal = true;
         this.imageId = id;
       },
 
       closeModal: function () {
-        this.showModal = false;
+        this.imageId = null;
+        history.pushState({}, "", "/");
       },
     },
   });
