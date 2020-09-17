@@ -3,7 +3,7 @@
   font-family: "Roboto", sans-serif;
 }
 main {
-  padding: 0 30px;
+  padding: 0 200px;
 }
 
 .image-gallery {
@@ -103,9 +103,31 @@ main {
   width: 100%;
 }
 
-/* .image-card p {
-  text-align: left;
-} */
+.load-more-btn {
+  background-color: #405d7d;
+  border-color: #6c757d;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: auto;
+  outline: none;
+  padding: 8px 20px;
+  text-align: center;
+  visibility: visible;
+  width: 20%;
+}
+
+.load-more-btn:hover {
+  background-color: #fff;
+  border-color: #405d7d;
+  color: #405d7d;
+  outline: none;
+}
 
 /* Modal */
 

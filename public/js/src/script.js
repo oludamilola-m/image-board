@@ -39,7 +39,6 @@
           .post("/comments", newInfo)
           .then(function (res) {
             that.comments.unshift(res.data.comment);
-            console.log("posting res:", res.data.comment.username);
           })
           .catch(function (err) {
             console.log(err);
@@ -69,6 +68,7 @@
         .get("/images")
         .then(function (res) {
           that.images = res.data.images;
+          that.checkScrollerPosition();
         })
         .catch(function (err) {
           console.log("err: ", err);
@@ -95,6 +95,51 @@
           });
       },
 
+      // handleFetchMore: function (e) {
+      //   that = this;
+      //   e.preventDefault();
+      //   const lastId = that.images[that.images.length - 1].id;
+      //   axios
+      //     .get("/images", {
+      //       params: { lastId: lastId },
+      //     })
+      //     .then(function (res) {
+      //       that.images.push(...res.data.images);
+      //     })
+      //     .catch(function (err) {
+      //       console.log(err);
+      //     });
+      // },
+
+      checkScrollerPosition: function (e) {
+        setTimeout(() => {
+          var isBottom =
+            window.pageYOffset + window.innerHeight >=
+            document.body.clientHeight;
+          if (isBottom) {
+            this.fetchMore();
+          } else {
+            this.checkScrollerPosition();
+          }
+        }, 500);
+      },
+
+      fetchMore: function () {
+        that = this;
+
+        const lastId = that.images[that.images.length - 1].id;
+        axios
+          .get("/images", {
+            params: { lastId: lastId },
+          })
+          .then(function (res) {
+            that.images.push(...res.data.images);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      },
+
       handleChange: function (e) {
         e.preventDefault();
         this.file = e.target.files[0];
@@ -107,10 +152,6 @@
 
       closeModal: function () {
         this.showModal = false;
-      },
-
-      onEnlargeText: function (enlargeAmount) {
-        this.postFontSize += enlargeAmount;
       },
     },
   });

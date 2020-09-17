@@ -26,9 +26,10 @@ const uploader = multer({
 });
 
 router.get("/images", (req, res) => {
-  db.getInfo().then(function (images) {
+  const { lastId } = req.query;
+  db.getImages(lastId).then(function (result) {
     res.json({
-      images: images.rows,
+      images: result.rows,
     });
   });
 });
