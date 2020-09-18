@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -25,13 +26,13 @@
         </div>      
 
         <div v-if="images.length > 0" class='images-container'>
-            <div v-for="image in images" class='image-card' @click='openModal(image.id)' > 
-              <a :href="'#' + image.id">
+            <div v-for="image in images" class='image-card' > 
+              <a :href="'#' + image.id"  @click='openModal(image.id)'>
                 <img :src="image.url" class='image'>
                 <p> {{image.title}}</p>
               </a>
-                
-            </div>
+              <i @click='handleDeleteImg(image.id)' class="fas fa-trash-alt deleteImage"></i>
+           </div>
         </div>
         <div v-else>No images to show</div> 
         <!-- <button @click='handleFetchMore' class="load-more-btn">Load More</button> -->
@@ -74,6 +75,5 @@
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/src/script.js"></script>
-    <script src="/js/src/file-input.js"></script>
 </body>
 </html>

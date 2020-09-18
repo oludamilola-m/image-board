@@ -93,6 +93,21 @@
       window.addEventListener("hashchange", function () {
         that.imageId = location.hash.slice(1);
       });
+
+      var fileInput = document.querySelector(".inputfile");
+
+      var label = fileInput.nextElementSibling;
+      this.uploadLabel = label.innerHTML;
+
+      fileInput.addEventListener("change", function (e) {
+        var fileName = e.target.value.split("\\").pop();
+
+        if (fileName) {
+          label.querySelector("span").innerHTML = fileName;
+        } else {
+          label.innerHTML = this.uploadLabel;
+        }
+      });
     },
     //method in vue instance can only function on element in main
     methods: {
@@ -109,6 +124,12 @@
           .post("/upload", formData)
           .then(function (res) {
             that.images.unshift(res.data.image);
+            that.title = "";
+            that.description = "";
+            that.username = "";
+            that.file = "";
+            var fileInput = document.querySelector(".inputfile");
+            fileInput.nextElementSibling.innerHTML = that.uploadLabel;
           })
           .catch(function (err) {
             console.log(err);
@@ -146,7 +167,9 @@
 
       fetchMore: function () {
         that = this;
-
+        if (that.images.length === 0) {
+          return;
+        }
         const lastId = that.images[that.images.length - 1].id;
         axios
           .get("/images", {
@@ -172,6 +195,21 @@
       closeModal: function () {
         this.imageId = null;
         history.pushState({}, "", "/");
+      },
+
+      handleDeleteImg: function (id) {
+        var that = this;
+
+        axios
+          .delete(`/images/${id}`)
+          .then(function (res) {
+            that.images = that.images.filter(function (image) {
+              return id !== image.id;
+            });
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
       },
     },
   });

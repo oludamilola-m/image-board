@@ -181,6 +181,10 @@ main {
   visibility: hidden;
 }
 
+.deleteImage {
+  color: #a50a0a;
+}
+
 @media only screen and (max-width: 600px) {
   .images-container {
     grid-template-columns: 1fr !important;

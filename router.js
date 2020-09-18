@@ -92,4 +92,34 @@ router.post("/comments", (req, res) => {
     });
 });
 
+router.delete("/images/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.getImageById(id)
+    .then(function ({ rows }) {
+      const image = rows[0];
+      const fileName = image.url.split("/").pop();
+
+      db.deleteImage(id)
+        .then(() => {
+          s3.delete(fileName)
+            .then(() => {
+              res.sendStatus(200);
+            })
+            .catch((err) => {
+              console.log(err);
+              res.sendStatus(422);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(422);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    });
+});
+
 module.exports = router;

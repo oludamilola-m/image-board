@@ -18,9 +18,7 @@ const s3 = new aws.S3({
 
 exports.upload = (req, res, next) => {
   if (!req.file) {
-    console.log(
-      "req.file is not ther for somne reason and we cannot contitnue"
-    );
+    console.log("req.file is not there for some reason and we cannot continue");
     return res.sendStatus(500);
   }
   const { filename, mimetype, size, path } = req.file;
@@ -45,6 +43,23 @@ exports.upload = (req, res, next) => {
     .catch((err) => {
       res.status(422).json({ error: "could not upload image" });
     });
+};
+
+exports.delete = (fileName) => {
+  var params = {
+    Bucket: "spicedling",
+    Key: fileName,
+  };
+
+  return new Promise((resolve, reject) => {
+    s3.deleteObject(params, function (err, data) {
+      if (err) {
+        reject();
+      } else {
+        resolve(data);
+      }
+    });
+  });
 };
 
 // to delete images : read use s3.delete images
