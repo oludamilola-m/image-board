@@ -153,6 +153,34 @@ main {
   font-size: 20px;
 }
 
+.round {
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  padding: 8px 16px;
+  background-color: #4caf50;
+}
+
+.round:hover {
+  background-color: #4caf50;
+}
+
+.round.disabled:hover {
+  background-color: #ddd;
+}
+
+.disabled {
+  background-color: #ddd;
+  color: #d6d1d1;
+  cursor: default;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 @media only screen and (max-width: 600px) {
   .images-container {
     grid-template-columns: 1fr !important;

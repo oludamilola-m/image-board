@@ -8,6 +8,8 @@
         name: "",
         image: {},
         comment: "",
+        nextImageId: null,
+        previousImageId: null,
         comments: [],
       };
     },
@@ -51,6 +53,8 @@
             } else {
               that.image = res.data.image;
               that.comments = res.data.comments;
+              that.nextImageId = res.data.nextImageId;
+              that.previousImageId = res.data.previousImageId;
             }
           })
           .catch(function () {

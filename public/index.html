@@ -34,7 +34,6 @@
             </div>
         </div>
         <div v-else>No images to show</div> 
-        <h3>hhh {{imageId}}</h3>
         <!-- <button @click='handleFetchMore' class="load-more-btn">Load More</button> -->
         <image-details :image-id='imageId' :parent-close-modal='closeModal' v-if='imageId'  v-on:close-modal="closeModal"></image-details>
         
@@ -49,7 +48,13 @@
               <p>{{image.title}}</p>
               <p>{{image.description}}</p> 
               <p>Uploaded by {{image.created_at}}</p> 
+              <p>{{image.id}}</p>
 
+              <a v-if="previousImageId" :href="'#' + previousImageId"  class="previous round">&#8249;</a>
+              <span v-else  class="previous round hidden">&#8249;</span>
+              
+              <a v-if='nextImageId'  :href="'#' + nextImageId" class="next round">&#8250;</a>
+              <span v-else  class="next round hidden">&#8250;</span>
               <div>
                 <h2>Please add comment</h2>
                 <input v-model='name' type="text" name='name' placeholder='Username' />
@@ -58,8 +63,7 @@
             </div>
             <div v-if="comments.length > 0" >
               <div v-for="com in comments"> 
-                  <p> {{com.username}}: {{com.comment}}</p>
-                 
+                  <p v-if="com.username"> {{com.comment_username}}: {{com.comment}}</p>
               </div>
             </div>
           <div v-else>No comments to show</div> 
