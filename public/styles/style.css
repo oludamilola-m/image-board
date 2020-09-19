@@ -1,9 +1,18 @@
 * {
   margin: 0;
+}
+
+body {
+  background: #171717;
+  color: white;
   font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
 }
 main {
-  padding: 0 200px;
+  display: flex;
+  padding: 30px 80px;
 }
 
 .image-gallery {
@@ -13,11 +22,30 @@ main {
 }
 
 .details input {
-  border: 1px solid #e2e8f0;
-  border-radius: 5px;
+  background: transparent;
+  display: block;
+  color: #a0a7ae;
+  border: 2px solid #2e3032;
+  font-size: 14px;
+  margin-top: 20px;
+  padding: 14px 19px 16px 19px;
+  border-radius: 0;
+  width: 100%;
+  line-height: 20px;
   margin-bottom: 10px;
-  padding: 10px;
-  width: 30%;
+  letter-spacing: 0.7px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  outline: none;
+}
+
+.images-container {
+  flex: 2.5;
+}
+
+.input-field-container {
+  flex: 1;
+  padding-left: 40px;
 }
 
 .details input::placeholder {
@@ -25,12 +53,24 @@ main {
 }
 
 .submit-btn {
-  color: #fff;
-  background-color: #1e41aa;
-  border: 1px solid #1e41aa;
-  border-radius: 5px;
+  border: none;
+  border-radius: 2px;
   cursor: pointer;
-  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 15px 30px;
+  outline: none;
+  margin-top: 15px;
+  width: 100%;
+  color: #ffffff;
+  background: #3a3e43;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submit-btn:hover {
+  background-color: #82a853;
+  outline: none;
 }
 
 .inputfile {
@@ -43,20 +83,21 @@ main {
 }
 
 .inputfile + label {
-  border: 1px solid #1e41aa;
-  color: #1e41aa;
-  background-color: white;
+  border: none;
+  color: #fff;
+  background: #3a3e43;
   cursor: pointer;
-  display: inline-block;
+  display: block;
   font-size: 14px;
   font-weight: normal;
   padding: 10px 15px;
+  text-align: center;
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-  background-color: #1e41aa;
-  color: white;
+  background-color: #82a853;
+  outline: none;
 }
 
 .inputfile + label svg {
@@ -71,33 +112,65 @@ main {
   outline: none;
 }
 
-.pixel {
-  text-transform: uppercase;
-}
-
-.box {
-  background-color: red;
-  padding: 0px 14px;
-  font-size: 25px;
-  margin: 10px;
-}
-
 .images-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 30px;
   margin-top: 20px;
 }
 
+.images-container h5 {
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 22px;
+  line-height: 32px;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
 .image-card {
-  border: 1px solid black;
-  border-radius: 5px;
+  font-family: "Oswald", sans-serif;
   text-align: center;
   padding: 5px;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 5px;
+  bottom: 0;
+  left: 5px;
+  right: 0;
+  height: 0px;
+  width: 97%;
+  opacity: 1;
+  transition: 0.5s ease;
+  background: rgba(58, 62, 67, 0.7);
+  overflow: hidden;
+}
+
+@keyframes showOverlay {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 230px;
+  }
+}
+
+.overlay div {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.image-card:hover .overlay {
+  animation: showOverlay 0.3s 1;
+  height: 230px;
 }
 
 .image {
-  border-radius: 5px;
   object-fit: cover;
   height: 230px;
   width: 100%;
@@ -181,8 +254,9 @@ main {
   visibility: hidden;
 }
 
-.deleteImage {
-  color: #a50a0a;
+.fas {
+  color: #fff;
+  font-size: 25px;
 }
 
 @media only screen and (max-width: 600px) {
