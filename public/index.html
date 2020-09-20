@@ -53,34 +53,41 @@
 
     <script id='image-details' type='text/x-template'>
         <div class="modal" id="modal" >
-              <span id="closeModal" v-on:click="$emit('close-modal')">X</span>
-              <img :src="image.url" class='image'>
-              <p>{{image.title}}</p>
+          <div class='image-container'>
+            <img :src="image.url" class='modal-image'>
+
+            <a v-if="previousImageId" :href="'#' + previousImageId"  class="previous round">&#8249;</a>
+            <span v-else  class="previous round hidden">&#8249;</span>
+            
+            <a v-if='nextImageId'  :href="'#' + nextImageId" class="next round">&#8250;</a>
+            <span v-else  class="next round hidden">&#8250;</span>
+          </div>
+          <div class='comment-container' >
+            <div class='close-modal' v-on:click="$emit('close-modal')"><span id="closeModal" >X</span></div>
+              <h2 class='title'>{{image.title}}</h2>
               <p>{{image.description}}</p> 
-              <p>Uploaded by {{image.created_at}}</p> 
-              <p>{{image.id}}</p>
-
-              <a v-if="previousImageId" :href="'#' + previousImageId"  class="previous round">&#8249;</a>
-              <span v-else  class="previous round hidden">&#8249;</span>
+              <p><em>Uploaded by {{uppercase(image.username)}} on {{formatDate(image.created_at)}}</em></p> 
               
-              <a v-if='nextImageId'  :href="'#' + nextImageId" class="next round">&#8250;</a>
-              <span v-else  class="next round hidden">&#8250;</span>
               <div>
-                <h2>Please add comment</h2>
-                <input v-model='name' type="text" name='name' placeholder='Username' />
-                <input v-model='comment' type="text" name='comment' placeholder='Comment' />
-                <button @click='handleClick'>Submit</button>
-            </div>
-            <div v-if="comments.length > 0" >
-              <div v-for="com in comments"> 
-                  <p v-if="com.username"> {{com.comment_username}}: {{com.comment}}</p>
+                <h2 class='comments'>Comments</h2>
+                <input v-model='name' type="text" name='name' placeholder='Username' class='comment-input'/>
+                <input v-model='comment' type="text" name='comment' placeholder='Comment' class='comment-input'/>
+                <button @click='handleClick' class='submit-btn'>Add Comment</button>
               </div>
-            </div>
-          <div v-else>No comments to show</div> 
+              <div v-if="comments.length > 0" >
+                <div v-for="com in comments"> 
+                    <div v-if="com.comment_username">
+                      <p style="font-size: 14px; font-weight: bold; margin-bottom: 1px">{{com.comment_username}} <span style="font-weight: normal"> on {{formatDate(com.comment_created_at)}}</span></p>
+                      <p>{{com.comment}}</p>
+                    </div>
+                </div>
+              </div>
+              <div v-else>No comments to show</div>
+          </div>
         </div>
-        </div>
+        <!-- </div> -->
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js" integrity="sha512-F+u8eWHrfY8Xw9BLzZ8rG/0wIvs0y+JyRJrXjp3VjtFPylAEEGwKbua5Ip/oiVhaTDaDs4eU2Xtsxjs/9ag2bQ==" crossorigin="anonymous"></script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/src/script.js"></script>

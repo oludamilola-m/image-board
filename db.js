@@ -15,7 +15,7 @@ module.exports.addComment = (comment, username, image_id) => {
   return db.query(
     `INSERT INTO comments (comment, username, image_id) 
     VALUES ($1,$2,$3)
-        RETURNING * `,
+        RETURNING  username AS comment_username, comment, created_at AS comment_created_at`,
     [comment, username, image_id]
   );
 };
@@ -39,7 +39,7 @@ module.exports.getComments = (image_id) => {
 
 module.exports.getImageById = (id) => {
   return db.query(
-    `SELECT images.*, comments.username AS comment_username, comment FROM images LEFT JOIN comments ON images.id = comments.image_id WHERE images.id = $1`,
+    `SELECT images.*, comments.created_at AS comment_created_at, comments.username AS comment_username, comment FROM images LEFT JOIN comments ON images.id = comments.image_id WHERE images.id = $1`,
     [id]
   );
 };

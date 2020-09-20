@@ -37,6 +37,8 @@
           .post("/comments", newInfo)
           .then(function (res) {
             that.comments.unshift(res.data.comment);
+            that.comment = "";
+            that.name = "";
           })
           .catch(function (err) {
             console.log(err);
@@ -60,6 +62,17 @@
           .catch(function () {
             that.parentCloseModal();
           });
+      },
+
+      formatDate: function (time) {
+        return dateFns.format(new Date(time), "Do of MMMM YYYY");
+      },
+
+      uppercase: function (word) {
+        if (word) {
+          return word.toUpperCase();
+        }
+        return "";
       },
     },
   });

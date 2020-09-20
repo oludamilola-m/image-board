@@ -4,7 +4,6 @@
 
 body {
   background: #171717;
-  color: white;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -16,12 +15,14 @@ main {
 }
 
 .image-gallery {
+  color: #fff;
   margin-bottom: 20px;
   margin-top: 5px;
   text-align: center;
 }
 
-.details input {
+.details input,
+.comment-input {
   background: transparent;
   display: block;
   color: #a0a7ae;
@@ -202,43 +203,77 @@ main {
 /* Modal */
 
 .modal {
-  background-color: #fff;
-  border: 2px solid black;
-  border-radius: 8px;
-  height: 600px;
+  color: #fff;
+  display: flex;
+  background-color: #000;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+  height: auto;
   position: fixed;
-  top: 20%;
-  left: 40%;
-  margin-top: -100px;
-  margin-left: -250px;
-  padding: 10px 5px 0 20px;
-  display: block;
-  width: 50%;
+  top: 10%;
+  left: 18%;
+  width: 65%;
+}
+
+.modal-image {
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border: 0;
+}
+
+.close-modal {
+  background-color: rgba(32, 33, 36, 2.5);
+  border-radius: 50%;
+  float: right;
+  padding-left: 10px;
+  transition: 350ms all;
+  width: 5%;
 }
 
 #closeModal {
   color: grey;
   cursor: pointer;
-  float: right;
   font-size: 20px;
+}
+
+.title {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
 .round {
   border-radius: 50%;
   color: white;
-  text-decoration: none;
-  display: inline-block;
   cursor: pointer;
+  display: inline-block;
+  font-size: 50px;
   padding: 8px 16px;
-  background-color: #4caf50;
+  text-decoration: none;
+  position: absolute;
 }
 
 .round:hover {
-  background-color: #4caf50;
+  color: #4caf50;
 }
 
 .round.disabled:hover {
   background-color: #ddd;
+}
+.previous {
+  left: 0%;
+  top: 50%;
+}
+
+.next {
+  right: 0%;
+  top: 50%;
 }
 
 .disabled {
@@ -254,6 +289,24 @@ main {
 .fas {
   color: #fff;
   font-size: 25px;
+}
+
+.image-container {
+  flex: 1;
+  position: relative;
+}
+
+.comment-container {
+  flex: 1;
+  padding: 30px;
+}
+
+.comment-container p {
+  margin-bottom: 10px;
+}
+
+.comment-container:nth-child(2) {
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width: 600px) {
@@ -272,5 +325,23 @@ main {
 
   .input-field-container {
     padding: 0px;
+  }
+
+  .close-modal {
+    width: 15%;
+  }
+
+  .modal {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    flex-wrap: wrap;
+  }
+
+  .image-container,
+  .comment-container {
+    flex-basis: 100%;
   }
 }
