@@ -9,4 +9,6 @@ app.use(express.static("sql"));
 
 app.use(router);
 
-app.listen(8080, () => console.log("Listening to serve Vue!"));
+app.listen(prcoess.env.PORT || 8080, () =>
+  console.log("Listening to serve Vue!")
+);
