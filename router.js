@@ -35,8 +35,7 @@ router.get("/images", (req, res) => {
 });
 
 router.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-  const filename = req.file.filename;
-  const url = `${s3Url}${filename}`;
+  const url = `${s3Url}${req.filename}`;
 
   const { title, description, username } = req.body;
 

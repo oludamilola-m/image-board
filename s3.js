@@ -1,5 +1,7 @@
 const aws = require("aws-sdk");
 const fs = require("fs");
+const axios = require("axios");
+const uuid = require("uuid");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {
@@ -17,33 +19,74 @@ const s3 = new aws.S3({
 //OBJ are called KEYS
 
 exports.upload = (req, res, next) => {
-  if (!req.file) {
-    console.log("req.file is not there for some reason and we cannot continue");
-    return res.sendStatus(500);
-  }
-  const { filename, mimetype, size, path } = req.file;
+  const imageUrl = req.body.imageUrl;
+  if (imageUrl) {
+    axios({
+      method: "get",
+      url: imageUrl,
+      responseType: "stream",
+    }).then((response) => {
+      const mimetype = response.headers["content-type"];
+      if (!mimetype.includes("image")) {
+        return res.sendStatus(422);
+      }
 
-  const promise = s3
+      const size = response.headers["content-length"];
+      const filename = uuid.v4(); //https://www.npmjs.com/package/uuid
+
+      const promise = uploadToS3(filename, response.data, mimetype, size);
+      //get an obj which is a promise
+      promise
+        .then(() => {
+          console.log("it is working!");
+          req.filename = filename;
+          next();
+        })
+        .catch((err) => {
+          console.log("i was here three", err);
+          res.status(422).json({ error: "could not upload image" });
+        });
+    });
+  } else {
+    if (!req.file) {
+      console.log(
+        "req.file is not there for some reason and we cannot continue"
+      );
+      return res.sendStatus(500);
+    }
+    const { filename, mimetype, size, path } = req.file;
+    const promise = uploadToS3(
+      filename,
+      fs.createReadStream(path),
+      mimetype,
+      size
+    );
+
+    promise
+      .then(() => {
+        console.log("it is working!");
+        req.filename = filename;
+        next();
+      })
+      .catch((err) => {
+        res.status(422).json({ error: "could not upload image" });
+      });
+  }
+};
+
+function uploadToS3(filename, body, mimetype, size) {
+  return s3
     .putObject({
       Bucket: "spicedling",
       //ACL: access control list
       ACL: "public-read",
       Key: filename,
-      Body: fs.createReadStream(path),
+      Body: body,
       ContentType: mimetype,
       ContentLength: size,
     })
     .promise();
-  //get an obj which is a promise
-  promise
-    .then(() => {
-      console.log("it is working!");
-      next();
-    })
-    .catch((err) => {
-      res.status(422).json({ error: "could not upload image" });
-    });
-};
+}
 
 exports.delete = (fileName) => {
   var params = {

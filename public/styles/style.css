@@ -151,7 +151,7 @@ main {
     height: 0px;
   }
   to {
-    height: 230px;
+    height: 350px;
   }
 }
 
@@ -165,12 +165,12 @@ main {
 
 .image-card:hover .overlay {
   animation: showOverlay 0.3s 1;
-  height: 230px;
+  height: 350px;
 }
 
 .image {
   object-fit: cover;
-  height: 230px;
+  height: 350px;
   width: 100%;
 }
 

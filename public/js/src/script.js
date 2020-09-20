@@ -89,6 +89,7 @@
       username: "",
       file: null,
       imageId: location.hash.slice(1),
+      imageUrl: "",
     },
 
     mounted: function () {
@@ -132,6 +133,7 @@
         formData.append("description", this.description);
         formData.append("username", this.username);
         formData.append("file", this.file);
+        formData.append("imageUrl", this.imageUrl);
 
         axios
           .post("/upload", formData)
@@ -141,6 +143,7 @@
             that.description = "";
             that.username = "";
             that.file = "";
+            that.imageUrl = "";
             var fileInput = document.querySelector(".inputfile");
             fileInput.nextElementSibling.innerHTML = that.uploadLabel;
           })
