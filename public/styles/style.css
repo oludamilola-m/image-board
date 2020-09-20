@@ -305,6 +305,8 @@ main {
 .comment-container {
   flex: 1;
   padding: 30px;
+  height: 69vh;
+  overflow: auto;
 }
 
 .comment-container p {
