@@ -1,6 +1,6 @@
 const spicedPg = require("spiced-pg");
 require("dotenv").config();
-const db = spicedPg(process.env.DB_URL);
+const db = spicedPg(process.env.DATABASE_URL);
 
 module.exports.addImage = (url, title, description, username) => {
   return db.query(
