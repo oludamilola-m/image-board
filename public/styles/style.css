@@ -14,10 +14,16 @@ main {
   padding: 30px 80px;
 }
 
+.upload-form {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50px;
+}
+
 .image-gallery {
   color: #fff;
   margin-bottom: 20px;
-  margin-top: 5px;
+  padding-top: 50px;
   text-align: center;
 }
 
@@ -328,7 +334,9 @@ main {
   }
 
   .close-modal {
-    width: 15%;
+    position: absolute;
+    top: 10px;
+    right: 5px;
   }
 
   .modal {
@@ -343,5 +351,9 @@ main {
   .image-container,
   .comment-container {
     flex-basis: 100%;
+  }
+
+  .upload-form {
+    position: relative;
   }
 }

@@ -33,6 +33,12 @@
           comment: this.comment,
           image_id: this.imageId,
         };
+
+        if (this.name === "" || this.comment === "") {
+          alert("Please enter username and your comment");
+          return;
+        }
+
         axios
           .post("/comments", newInfo)
           .then(function (res) {
@@ -72,7 +78,7 @@
         if (word) {
           return word.toUpperCase();
         }
-        return "";
+        return "Anon";
       },
     },
   });
@@ -128,6 +134,10 @@
       handleClick: function (e) {
         var that = this;
         e.preventDefault();
+        if (this.title === "" || this.username === "") {
+          alert("Please enter image title and your username");
+          return;
+        }
         var formData = new FormData(); //send file to server
         formData.append("title", this.title);
         formData.append("description", this.description);

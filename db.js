@@ -23,11 +23,11 @@ module.exports.addComment = (comment, username, image_id) => {
 module.exports.getImages = (lastId = null) => {
   if (lastId) {
     return db.query(
-      `SELECT * FROM images WHERE id < $1 ORDER BY id DESC LIMIT 9`,
+      `SELECT * FROM images WHERE id < $1 ORDER BY id DESC LIMIT 6`,
       [lastId]
     );
   }
-  return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 9`);
+  return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 6`);
 };
 
 module.exports.getComments = (image_id) => {

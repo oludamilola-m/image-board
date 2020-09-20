@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <h1 class=image-gallery>Image Gallery</h1>
+  <h1 class=image-gallery>Ankara Image Gallery</h1>
     <main>
         <div v-if="images.length > 0" class='images-container'>
             <div v-for="image in images" class='image-card' >
@@ -28,12 +28,12 @@
              
            </div>
         </div>
-        <div v-else class='images-container'>No images to show</div> 
+        <div v-else class='images-container' style="color: #fff">No images to show</div> 
 
         <div class='input-field-container'>
-          <form action="">
+          <form action="" class="upload-form">
             <div class='details'>
-              <input v-model='title' type="text" name='title' placeholder='Title' />
+              <input v-model='title' type="text" name='title' placeholder='Title' required/>
               <input v-model='description' type="text" name='description' placeholder='Description' />
               <input v-model='username' type="text" name='username' placeholder='Username' />
               <input v-model="imageUrl" type="url" name='imageUrl' placeholder='Enter image url' />
@@ -78,7 +78,7 @@
               <div v-if="comments.length > 0" >
                 <div v-for="com in comments"> 
                     <div v-if="com.comment_username">
-                      <p style="font-size: 14px; font-weight: bold; margin-bottom: 1px">{{com.comment_username}} <span style="font-weight: normal"> on {{formatDate(com.comment_created_at)}}</span></p>
+                      <p style="font-size: 14px; font-weight: bold; margin-bottom: 1px; margin-top: 10px">{{com.comment_username}} <span style="font-weight: normal"> on {{formatDate(com.comment_created_at)}}</span></p>
                       <p>{{com.comment}}</p>
                     </div>
                 </div>
