@@ -178,6 +178,7 @@ main {
   object-fit: cover;
   height: 350px;
   width: 100%;
+  object-position: 50% 0%;
 }
 
 .load-more-btn {
